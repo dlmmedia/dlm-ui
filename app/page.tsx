@@ -302,7 +302,7 @@ export default function App() {
   };
 
   const parseJsonStream = async function* (
-    responseStream: AsyncGenerator<{ text: string }>
+    responseStream: AsyncGenerator<{ text?: string }>
   ) {
     let buffer = '';
     for await (const chunk of responseStream) {

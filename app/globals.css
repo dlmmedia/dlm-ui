@@ -1,6 +1,4 @@
-/* index.css - Immersive "Radical" Redesign */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+/* globals.css - Immersive "Radical" Redesign */
 
 :root {
     --app-bg: #09090b; /* Deep dark background */
@@ -25,16 +23,10 @@ html, body {
     overflow: hidden; /* Prevent window scrolling, everything is in the stage */
 }
 
-#root {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-}
-
 /* === Immersive App Container === */
 .immersive-app {
-    flex: 1;
+    height: 100vh;
+    width: 100vw;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -504,6 +496,10 @@ html, body {
     border-color: rgba(255,255,255,0.3);
     transform: translateY(-2px);
 }
+.action-buttons button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 /* === Navigation Handles === */
 .nav-handle {
@@ -596,6 +592,188 @@ html, body {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* === Projects List === */
+.projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.project-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.project-card:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+.project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.project-prompt {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    line-height: 1.4;
+    flex: 1;
+    margin-right: 12px;
+}
+
+.project-date {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.project-artifacts-preview {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.project-artifact-thumb {
+    flex: 1;
+    height: 60px;
+    background: #000;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.project-artifact-thumb iframe {
+    width: 400%;
+    height: 400%;
+    border: none;
+    pointer-events: none;
+    transform: scale(0.25);
+    transform-origin: top left;
+}
+
+.project-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--glass-border);
+}
+
+.project-action-btn {
+    flex: 1;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.project-action-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: var(--text-primary);
+}
+
+.project-action-btn.danger:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+}
+
+/* Empty projects state */
+.empty-projects {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+}
+
+.empty-projects p {
+    margin: 0 0 8px 0;
+    font-size: 0.95rem;
+}
+
+.empty-projects span {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* Top bar for My Projects button */
+.top-bar {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 101;
+    display: flex;
+    gap: 12px;
+}
+
+.top-bar-button {
+    background: rgba(24, 24, 27, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.top-bar-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Save indicator */
+.save-indicator {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(34, 197, 94, 0.2);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: #22c55e;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 150;
+    animation: slideDown 0.3s ease, fadeOut 0.3s ease 2s forwards;
+}
+
+@keyframes slideDown {
+    from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+    to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
+}
+
 /* Responsive Grid for smaller screens */
 @media (max-width: 1024px) {
     /* Hide creator credit when generation has started on mobile */
@@ -666,5 +844,15 @@ html, body {
         width: 1000px;
         height: 640px;
         transform: scale(0.16); 
+    }
+
+    .top-bar {
+        left: 12px;
+        top: 12px;
+    }
+
+    .top-bar-button {
+        padding: 6px 12px;
+        font-size: 0.8rem;
     }
 }

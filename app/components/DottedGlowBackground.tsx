@@ -1,7 +1,9 @@
+'use client';
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
-*/
+ */
 
 import React, { useEffect, useRef } from 'react';
 
@@ -21,8 +23,8 @@ export default function DottedGlowBackground({
   className,
   gap = 12,
   radius = 2,
-  color = "rgba(255,255,255,0.1)",
-  glowColor = "rgba(255, 255, 255, 0.8)",
+  color = 'rgba(255,255,255,0.1)',
+  glowColor = 'rgba(255, 255, 255, 0.8)',
   opacity = 1,
   speedMin = 0.5,
   speedMax = 1.5,
@@ -36,7 +38,7 @@ export default function DottedGlowBackground({
     const container = containerRef.current;
     if (!el || !container) return;
 
-    const ctx = el.getContext("2d");
+    const ctx = el.getContext('2d');
     if (!ctx) return;
 
     let raf = 0;
@@ -79,7 +81,7 @@ export default function DottedGlowBackground({
     };
 
     regenDots();
-    window.addEventListener("resize", regenDots);
+    window.addEventListener('resize', regenDots);
 
     const draw = (now: number) => {
       if (stopped) return;
@@ -96,16 +98,16 @@ export default function DottedGlowBackground({
 
         ctx.beginPath();
         ctx.arc(d.x, d.y, radius, 0, Math.PI * 2);
-        
+
         if (intensity > 0.7) {
-           ctx.fillStyle = glowColor;
-           ctx.shadowColor = glowColor;
-           ctx.shadowBlur = 8 * (intensity - 0.7) * 3;
+          ctx.fillStyle = glowColor;
+          ctx.shadowColor = glowColor;
+          ctx.shadowBlur = 8 * (intensity - 0.7) * 3;
         } else {
-           ctx.fillStyle = color;
-           ctx.shadowBlur = 0;
+          ctx.fillStyle = color;
+          ctx.shadowBlur = 0;
         }
-        ctx.globalAlpha = opacity * (intensity > 0.7 ? 1 : 0.3 + intensity * 0.5); 
+        ctx.globalAlpha = opacity * (intensity > 0.7 ? 1 : 0.3 + intensity * 0.5);
         ctx.fill();
       });
 
@@ -117,14 +119,18 @@ export default function DottedGlowBackground({
     return () => {
       stopped = true;
       cancelAnimationFrame(raf);
-      window.removeEventListener("resize", regenDots);
+      window.removeEventListener('resize', regenDots);
       ro.disconnect();
     };
   }, [gap, radius, color, glowColor, opacity, speedMin, speedMax, speedScale]);
 
   return (
-    <div ref={containerRef} className={className} style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-      <canvas ref={canvasRef} style={{ display: "block" }} />
+    <div
+      ref={containerRef}
+      className={className}
+      style={{ position: 'absolute', inset: 0, zIndex: 0 }}
+    >
+      <canvas ref={canvasRef} style={{ display: 'block' }} />
     </div>
   );
 }

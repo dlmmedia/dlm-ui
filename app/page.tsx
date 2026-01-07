@@ -28,6 +28,7 @@ import {
   DownloadIcon,
   TrashIcon,
   CheckIcon,
+  HomeIcon,
 } from './components/Icons';
 
 export default function App() {
@@ -666,6 +667,15 @@ Return ONLY RAW HTML. No markdown fences.
     handleSendMessage(currentPrompt);
   };
 
+  const handleGoHome = () => {
+    setSessions([]);
+    setCurrentSessionIndex(-1);
+    setFocusedArtifactIndex(null);
+    setInputValue('');
+    setDrawerState({ isOpen: false, mode: null, title: '', data: null });
+    setTimeout(() => inputRef.current?.focus(), 100);
+  };
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && !isLoading) {
       event.preventDefault();
@@ -724,9 +734,24 @@ Return ONLY RAW HTML. No markdown fences.
       )}
 
       <div className="top-bar">
-        <button className="top-bar-button" onClick={handleShowProjects}>
-          <FolderIcon /> My Projects
+        <button 
+          className="top-bar-logo" 
+          onClick={handleGoHome}
+          title="Go to Home"
+        >
+          <span className="logo-icon">✦</span>
+          <span className="logo-text">DLM UI</span>
         </button>
+        <div className="top-bar-actions">
+          {hasStarted && (
+            <button className="top-bar-button home-button" onClick={handleGoHome}>
+              <HomeIcon /> New
+            </button>
+          )}
+          <button className="top-bar-button" onClick={handleShowProjects}>
+            <FolderIcon /> My Projects
+          </button>
+        </div>
       </div>
 
       <SideDrawer
